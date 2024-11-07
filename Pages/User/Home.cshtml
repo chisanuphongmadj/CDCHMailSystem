@@ -1,0 +1,44 @@
+﻿@page
+@model CDCHMailSystem.Pages.User.HomeModel
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<h2>Inbox</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date/Time</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Mails != null && Model.Mails.Count > 0)
+        {
+            foreach (var mail in Model.Mails)
+            {
+                <tr>
+                    <td>@mail.FromUsername</td>
+                    <td>@mail.Subject</td>
+                    <td>@mail.DateTime</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@mail.Id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No emails found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-page="/User/Compose" class="btn btn-primary" style="margin-top: 20px;">Compose Mail</a>
+

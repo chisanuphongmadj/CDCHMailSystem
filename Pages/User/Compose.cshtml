@@ -1,0 +1,34 @@
+﻿@page
+@model CDCHMailSystem.Pages.User.ComposeModel
+@{
+}
+
+<h2>Compose Mail</h2>
+
+<form method="post">
+    <div>
+        <label asp-for="ToUsername"></label>
+        <input asp-for="ToUsername" />
+        <span asp-validation-for="ToUsername"></span>
+    </div>
+    <div>
+        <label asp-for="Subject"></label>
+        <input asp-for="Subject" />
+        <span asp-validation-for="Subject"></span>
+    </div>
+    <div>
+        <label asp-for="Body"></label>
+        <textarea asp-for="Body"></textarea>
+        <span asp-validation-for="Body"></span>
+    </div>
+    <button type="submit">Send</button>
+</form>
+
+@if (Model.ErrorMessage != null)
+{
+    <p style="color: red;">@Model.ErrorMessage</p>
+}
+@if (Model.SuccessMessage != null)
+{
+    <p style="color: green;">@Model.SuccessMessage</p>
+}
