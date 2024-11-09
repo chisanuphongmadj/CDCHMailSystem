@@ -18,27 +18,48 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/User/Home">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
-                        </li>
                     </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <!-- เพิ่ม ms-auto เพื่อดันเนื้อหาไปขวาสุด -->
+                        @* เงื่อนไขการแสดงเมนู *@
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">
+                                    @User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <form id="logoutForm" method="post" asp-page-handler="Logout" style="display:none;"></form>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -47,3 +68,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

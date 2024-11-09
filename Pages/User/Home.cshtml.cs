@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -9,6 +10,12 @@ namespace CDCHMailSystem.Pages.User
     public class HomeModel : PageModel
     {
         public List<Mail> Mails { get; set; }
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            // ลบ cookies ของผู้ใช้และออกจากระบบ
+            await HttpContext.SignOutAsync();
+            return RedirectToPage("/User/Home"); // กลับไปที่หน้าแรกหรือหน้า Login
+        }
 
         public async Task OnGetAsync()
         {

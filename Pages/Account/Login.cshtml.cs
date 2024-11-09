@@ -32,36 +32,49 @@ namespace CDCHMailSystem.Pages.Account
 
             string connectionString = "Server=tcp:cdchemail.database.windows.net,1433;Initial Catalog=cdchemailsystem;Persist Security Info=False;User ID=cdch1234;Password=1234@cdch;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             bool isValidUser = false;
+            string firstName = "";
+            string lastName = "";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT COUNT(1) FROM Users WHERE Username = @Username AND Password = @Password";
+                string query = "SELECT FirstName, LastName FROM Users WHERE Username = @Username AND Password = @Password";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", Username);
                     command.Parameters.AddWithValue("@Password", Password);
 
-                    int count = (int)await command.ExecuteScalarAsync();
-                    isValidUser = count > 0;
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            isValidUser = true;
+                            firstName = reader["FirstName"].ToString();
+                            lastName = reader["LastName"].ToString();
+                        }
+                    }
                 }
             }
 
             if (isValidUser)
             {
+                // สร้าง Claims พร้อมเพิ่มชื่อจริงและนามสกุล
                 var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, Username)
-            };
+                {
+                    new Claim(ClaimTypes.Name, Username),
+                    new Claim("FirstName", firstName),
+                    new Claim("LastName", lastName)
+                };
 
-                var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = true
                 };
 
                 await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity), authProperties);
+
 
                 return RedirectToPage("/User/Home");
             }
@@ -73,3 +86,4 @@ namespace CDCHMailSystem.Pages.Account
         }
     }
 }
+
