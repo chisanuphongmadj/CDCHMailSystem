@@ -1,0 +1,17 @@
+﻿@page "{id:int}"
+@model CDCHMailSystem.Pages.User.ReadMailModel
+@{
+    ViewData["Title"] = "Read Mail";
+}
+
+<h2>Mail Details</h2>
+
+<div>
+    <p><strong>From:</strong> @Model.Mail.FromUsername</p>
+    <p><strong>Subject:</strong> @Model.Mail.Subject</p>
+    <p><strong>Date/Time:</strong> @Model.Mail.DateTime</p>
+    <hr />
+    <p>@Model.Mail.Body</p>
+</div>
+
+<a asp-page="/User/Home" class="btn btn-secondary">Back to Inbox</a>

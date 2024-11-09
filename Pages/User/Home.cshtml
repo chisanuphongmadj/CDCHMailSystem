@@ -12,7 +12,7 @@
             <th>From</th>
             <th>Subject</th>
             <th>Date/Time</th>
-            <th>Delete</th>
+            <th>Actions</th> <!-- เปลี่ยนชื่อหัวข้อเป็น Actions -->
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,9 @@
                     <td>@mail.Subject</td>
                     <td>@mail.DateTime</td>
                     <td>
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@mail.Id">
+                        <!-- ปุ่ม Read อยู่ก่อนปุ่ม Delete -->
+                        <a asp-page="/User/ReadMail" asp-route-id="@mail.Id" class="btn btn-info">Read</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@mail.Id" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>

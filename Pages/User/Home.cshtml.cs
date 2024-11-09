@@ -10,11 +10,12 @@ namespace CDCHMailSystem.Pages.User
     public class HomeModel : PageModel
     {
         public List<Mail> Mails { get; set; }
+
         public async Task<IActionResult> OnPostLogoutAsync()
         {
             // ลบ cookies ของผู้ใช้และออกจากระบบ
             await HttpContext.SignOutAsync();
-            return RedirectToPage("/User/Home"); // กลับไปที่หน้าแรกหรือหน้า Login
+            return RedirectToPage("/Account/Login"); // กลับไปที่หน้า Login
         }
 
         public async Task OnGetAsync()
@@ -26,7 +27,7 @@ namespace CDCHMailSystem.Pages.User
             if (string.IsNullOrEmpty(currentUsername))
             {
                 // กรณีที่ผู้ใช้ไม่ล็อกอิน ให้ redirect ไปที่หน้า Login
-                RedirectToPage("/Login");
+                RedirectToPage("/Account/Login");
                 return;
             }
 
@@ -83,5 +84,7 @@ namespace CDCHMailSystem.Pages.User
         public string FromUsername { get; set; }
         public string Subject { get; set; }
         public string DateTime { get; set; }
+        public string Body { get; set; } // เพิ่มคุณสมบัติ Body
     }
+
 }

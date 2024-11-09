@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CDCHMailSystem.Pages.User
 {
@@ -22,6 +23,12 @@ namespace CDCHMailSystem.Pages.User
 
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
+
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToPage("/Account/Login");
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
