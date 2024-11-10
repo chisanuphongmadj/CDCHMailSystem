@@ -59,7 +59,6 @@ namespace CDCHMailSystem.Pages.Account
 
             if (isValidUser)
             {
-                // สร้าง Claims พร้อมเพิ่มชื่อจริงและนามสกุล
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, Username),

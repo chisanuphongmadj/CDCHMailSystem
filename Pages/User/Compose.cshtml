@@ -1,34 +1,43 @@
 ﻿@page
 @model CDCHMailSystem.Pages.User.ComposeModel
 @{
+    ViewData["Title"] = "Compose Mail";
 }
 
-<h2>Compose Mail</h2>
+<div class="container" style="max-width: 600px; margin-top: 50px;">
+    <h2 class="text-center">Compose Mail</h2>
 
-<form method="post">
-    <div>
-        <label asp-for="ToUsername"></label>
-        <input asp-for="ToUsername" />
-        <span asp-validation-for="ToUsername"></span>
-    </div>
-    <div>
-        <label asp-for="Subject"></label>
-        <input asp-for="Subject" />
-        <span asp-validation-for="Subject"></span>
-    </div>
-    <div>
-        <label asp-for="Body"></label>
-        <textarea asp-for="Body"></textarea>
-        <span asp-validation-for="Body"></span>
-    </div>
-    <button type="submit">Send</button>
-</form>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="ToUsername" class="form-label">To Username</label>
+            <input asp-for="ToUsername" class="form-control" />
+            <span asp-validation-for="ToUsername" class="text-danger"></span>
+        </div>
 
-@if (Model.ErrorMessage != null)
-{
-    <p style="color: red;">@Model.ErrorMessage</p>
-}
-@if (Model.SuccessMessage != null)
-{
-    <p style="color: green;">@Model.SuccessMessage</p>
-}
+        <div class="mb-3">
+            <label asp-for="Subject" class="form-label">Subject</label>
+            <input asp-for="Subject" class="form-control" />
+            <span asp-validation-for="Subject" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Body" class="form-label">Body</label>
+            <textarea asp-for="Body" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Body" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
+
+    @* แสดงข้อความความสำเร็จหรือข้อผิดพลาด *@
+    @if (Model.ErrorMessage != null)
+    {
+        <p class="text-danger text-center">@Model.ErrorMessage</p>
+    }
+    @if (Model.SuccessMessage != null)
+    {
+        <p class="text-success text-center">@Model.SuccessMessage</p>
+    }
+</div>

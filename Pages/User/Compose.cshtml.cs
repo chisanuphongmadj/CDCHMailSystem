@@ -64,7 +64,7 @@ namespace CDCHMailSystem.Pages.User
 
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@FromUsername", User.Identity.Name); // สมมติว่าใช้ระบบ Identity เพื่อล็อกอิน
+                    command.Parameters.AddWithValue("@FromUsername", User.Identity.Name);
                     command.Parameters.AddWithValue("@ToUsername", ToUsername);
                     command.Parameters.AddWithValue("@Subject", Subject);
                     command.Parameters.AddWithValue("@Body", Body);

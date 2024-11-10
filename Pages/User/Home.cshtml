@@ -12,7 +12,7 @@
             <th>From</th>
             <th>Subject</th>
             <th>Date/Time</th>
-            <th>Actions</th> <!-- เปลี่ยนชื่อหัวข้อเป็น Actions -->
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,6 @@
                     <td>@mail.Subject</td>
                     <td>@mail.DateTime</td>
                     <td>
-                        <!-- ปุ่ม Read อยู่ก่อนปุ่ม Delete -->
                         <a asp-page="/User/ReadMail" asp-route-id="@mail.Id" class="btn btn-info">Read</a>
                         <form method="post" asp-page-handler="Delete" asp-route-id="@mail.Id" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -42,5 +41,13 @@
         }
     </tbody>
 </table>
-<a asp-page="/User/Compose" class="btn btn-primary" style="margin-top: 20px;">Compose Mail</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-page="/User/Compose" class="btn btn-primary" style="margin-top: 20px;">Compose Mail</a>
+}
+else
+{
+    <button class="btn btn-primary" style="margin-top: 20px;" disabled>Compose Mail</button>
+    <p class="text-muted" style="margin-top: 10px;">Please login to compose a mail.</p>
+}
 

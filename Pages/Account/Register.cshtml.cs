@@ -55,7 +55,7 @@ namespace CDCHMailSystem.Pages.Account
                 }
             }
 
-            return RedirectToPage("/User/Home");
+            return RedirectToPage("/Account/Login");
         }
     }
 }

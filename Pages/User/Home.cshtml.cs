@@ -84,7 +84,7 @@ namespace CDCHMailSystem.Pages.User
         public string FromUsername { get; set; }
         public string Subject { get; set; }
         public string DateTime { get; set; }
-        public string Body { get; set; } // เพิ่มคุณสมบัติ Body
+        public string Body { get; set; }
     }
 
 }
