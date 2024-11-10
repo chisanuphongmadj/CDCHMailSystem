@@ -70,11 +70,11 @@ namespace CDCHMailSystem.Pages.User
                     command.Parameters.AddWithValue("@Body", Body);
 
                     await command.ExecuteNonQueryAsync();
-                    SuccessMessage = "Mail sent successfully!";
                 }
             }
 
-            return Page();
+            // เปลี่ยนเส้นทางไปหน้า Home หลังจากส่งเมลเสร็จ
+            return RedirectToPage("/User/Home");
         }
     }
 }
