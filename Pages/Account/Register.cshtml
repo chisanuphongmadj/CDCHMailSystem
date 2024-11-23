@@ -8,37 +8,42 @@
     <h2 class="text-center">Register</h2>
 
     <form method="post">
+        <!-- First Name -->
         <div class="mb-3">
             <label asp-for="FirstName" class="form-label">First Name</label>
             <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
+        <!-- Last Name -->
         <div class="mb-3">
             <label asp-for="LastName" class="form-label">Last Name</label>
             <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
+        <!-- Phone -->
         <div class="mb-3">
             <label asp-for="Phone" class="form-label">Phone</label>
             <input asp-for="Phone" class="form-control" />
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
 
+        <!-- Username -->
         <div class="mb-3">
             <label asp-for="Username" class="form-label">Username</label>
             <input asp-for="Username" class="form-control" />
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>
 
+        <!-- Password -->
         <div class="mb-3">
             <label asp-for="Password" class="form-label">Password</label>
             <input asp-for="Password" type="password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-        @* แสดงปุ่ม Back to Home และ Register ให้จัดเรียงชิดซ้ายขวา *@
+        <!-- Buttons -->
         <div class="d-flex justify-content-between">
             <a asp-page="/User/Home" class="btn btn-secondary">Back to Home</a>
             <button type="submit" class="btn btn-primary">Register</button>
@@ -46,4 +51,7 @@
     </form>
 </div>
 
-
+@section Scripts {
+    <!-- ใช้ Validation Scripts -->
+    <partial name="_ValidationScriptsPartial" />
+}

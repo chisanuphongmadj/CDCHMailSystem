@@ -9,6 +9,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Status</th>
             <th>From</th>
             <th>Subject</th>
             <th>Date/Time</th>
@@ -21,11 +22,40 @@
             foreach (var mail in Model.Mails)
             {
                 <tr>
+                    <td>
+                        @if (mail.IsRead)
+                        {
+                            <span class="badge bg-success">Read</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning">Unread</span>
+                        }
+                    </td>
                     <td>@mail.FromUsername</td>
                     <td>@mail.Subject</td>
                     <td>@mail.DateTime</td>
                     <td>
-                        <a asp-page="/User/ReadMail" asp-route-id="@mail.Id" class="btn btn-info">Read</a>
+                        <!-- ปุ่ม Read -->
+                        <a asp-page="/User/ReadMail" asp-route-id="@mail.Id" class="btn btn-secondary">Read</a>
+
+                        <!-- ปุ่ม Mark as Read -->
+                        @if (!mail.IsRead)
+                        {
+                            <form method="post" asp-page-handler="MarkAsRead" asp-route-id="@mail.Id" style="display:inline;">
+                                <button type="submit" class="btn btn-info">Mark as Read</button>
+                            </form>
+                        }
+
+                        <!-- ปุ่ม Mark as Unread -->
+                        @if (mail.IsRead)
+                        {
+                            <form method="post" asp-page-handler="MarkAsUnread" asp-route-id="@mail.Id" style="display:inline;">
+                                <button type="submit" class="btn btn-warning">Mark as Unread</button>
+                            </form>
+                        }
+
+                        <!-- ปุ่ม Delete -->
                         <form method="post" asp-page-handler="Delete" asp-route-id="@mail.Id" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
@@ -36,11 +66,12 @@
         else
         {
             <tr>
-                <td colspan="4">No emails found.</td>
+                <td colspan="5">No emails found.</td>
             </tr>
         }
     </tbody>
 </table>
+
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-page="/User/Compose" class="btn btn-primary" style="margin-top: 20px;">Compose Mail</a>
@@ -50,4 +81,3 @@ else
     <button class="btn btn-primary" style="margin-top: 20px;" disabled>Compose Mail</button>
     <p class="text-muted" style="margin-top: 10px;">Please login to compose a mail.</p>
 }
-
