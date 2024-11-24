@@ -5,7 +5,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {
-        options.LoginPath = "/Account/Login"; // เส้นทางไปยังหน้าล็อกอิน
+        options.LoginPath = "/Account/Login";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = false; // คุกกี้จะไม่ต่ออายุ
+        options.Cookie.IsEssential = true; // ทำให้คุกกี้จำเป็นสำหรับการทำงาน
+        options.Cookie.HttpOnly = true;   // ป้องกันการเข้าถึงคุกกี้จาก JavaScript
     });
 
 var app = builder.Build();

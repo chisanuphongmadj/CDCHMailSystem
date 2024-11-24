@@ -67,13 +67,14 @@ namespace CDCHMailSystem.Pages.Account
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // ตั้งค่าคุกกี้ให้เป็น Session-based
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = true
+                    IsPersistent = false // คุกกี้จะหมดอายุเมื่อปิดเบราว์เซอร์
                 };
 
                 await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity), authProperties);
-
 
                 return RedirectToPage("/User/Home");
             }
