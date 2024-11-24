@@ -11,7 +11,19 @@
     <p><strong>Subject:</strong> @Model.Mail.Subject</p>
     <p><strong>Date/Time:</strong> @Model.Mail.DateTime</p>
     <hr />
-    <p>@Model.Mail.Body</p>
+    <div class="email-body">
+        @Model.Mail.Body
+    </div>
 </div>
 
 <a asp-page="/User/Home" class="btn btn-secondary">Back to Inbox</a>
+
+<style>
+    .email-body {
+        white-space: pre-wrap; /* คงการจัดบรรทัดตามต้นฉบับ และตัดคำ */
+        word-wrap: break-word; /* บังคับให้ตัดคำ */
+        overflow-wrap: break-word; /* รองรับเบราว์เซอร์รุ่นใหม่ */
+        max-width: 100%; /* จำกัดข้อความไม่ให้เกินขอบเขตหน้าจอ */
+    }
+</style>
+
